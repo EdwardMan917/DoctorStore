@@ -40,9 +40,11 @@ def get_doctors(
             return Right(ctx)
 
         try:
-            price_query = price_query.split(',')
+            price_query = price_query.strip().split(',')
             price_query.sort()
             lower_limit, upper_limit = map(int, price_query)
+            if lower_limit < 0 or upper_limit < 0:
+                raise ValueError
             price_query = Q(services__price__range=(lower_limit, upper_limit))
             return Right(dict(condition=ctx.get('condition').add(price_query, Q.AND)))
         except ValueError:
@@ -53,11 +55,11 @@ def get_doctors(
         condition = ctx.get('condition')
         
         if district:
-            condition.add(Q(district=district), Q.AND)
+            condition.add(Q(district=district.strip().lower()), Q.AND)
         if category:
-            condition.add(Q(categories__query_name=category), Q.AND)
+            condition.add(Q(categories__query_name=category.strip().lower()), Q.AND)
         if language:
-            condition.add(Q(languages__query_name=language), Q.AND)
+            condition.add(Q(languages__query_name=language.strip().lower()), Q.AND)
         
         return Right(dict(condition=condition))
 
