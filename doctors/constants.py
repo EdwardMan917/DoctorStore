@@ -12,7 +12,7 @@ class GetDoctor:
             openapi.IN_PATH, 
             type=openapi.TYPE_STRING,
             description='''
-                ID of doctor in UUID4 format. Ther are 7 valid IDs:
+                ID of doctor in UUID4 format. There are 7 valid IDs:
 
                 93191810-7a02-4df0-a352-d2e8a146c112
                 37fcb0c2-6e31-4819-80a1-89a98d0b9b76
