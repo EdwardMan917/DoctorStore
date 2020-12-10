@@ -1,5 +1,5 @@
 from django.test import TestCase
-from doctors.data import create
+from doctors.data import create_test_data
 from doctors.query import get_doctor_by_id, get_doctors
 from doctors.models import Doctor, Language
 from doctors.serializers import DoctorSerializer
@@ -9,8 +9,8 @@ class SerializerTests(TestCase):
     
     @classmethod
     def setUpTestData(self):
-        create()
-        self.doctor = Doctor.objects.first()
+        create_test_data()
+        self.doctor = Doctor.objects.get(pk='b8eec005-25e7-475a-b3f9-8b5f7d8471a4')
         self.result = DoctorSerializer(self.doctor).data
     
     def test_keys(self):
@@ -46,30 +46,30 @@ class GetDoctorTests(TestCase):
     
     @classmethod
     def setUpTestData(self):
-        create()
+        create_test_data()
 
     def test_success(self):
-        doctor = Doctor.objects.first()
+        doctor = Doctor.objects.get(pk='b8eec005-25e7-475a-b3f9-8b5f7d8471a4')
         result: dict = get_doctor_by_id(doctor.id)
-        assert not 'error_code' in result
-        assert result.get('doctor', dict()).get('id') == str(doctor.id)
+        self.assertFalse('error_code' in result)
+        self.assertEqual(result.get('doctor', dict()).get('id'), str(doctor.id))
 
     def test_doctor_not_found(self):
         result: dict = get_doctor_by_id(str(uuid.uuid4()))
-        assert result.get('error_code') == 'DOCTOR_NOT_FOUND'
+        self.assertEqual(result.get('error_code'), 'DOCTOR_NOT_FOUND')
 
         result: dict = get_doctor_by_id(123)
-        assert result.get('error_code') == 'DOCTOR_NOT_FOUND'
+        self.assertEqual(result.get('error_code'), 'DOCTOR_NOT_FOUND')
 
 
 class GetDoctorsTests(TestCase):
     
     @classmethod
     def setUpTestData(self):
-        create()
+        create_test_data()
 
     def test_district_query(self):
-        district = 'kwun-tong'
+        district = 'district_a'
         result: dict = get_doctors(district=district)
         doctors = result.get('doctors')
         self.assertFalse('error_code' in result)
@@ -84,25 +84,25 @@ class GetDoctorsTests(TestCase):
         self.assertTrue(result.get('doctors') == [])
         
     def test_category_query(self):
-        category = 'dentistry'
+        category = 'category_b'
         result: dict = get_doctors(category=category)
         doctors = result.get('doctors')
         self.assertFalse('error_code' in result)
         self.assertFalse(doctors == [])
         for doctor in doctors:
-            self.assertTrue('牙科' in doctor.get('categories'))
+            self.assertTrue('cat_b' in doctor.get('categories'))
 
         result: dict = get_doctors(category='dummy')
         self.assertTrue(result.get('doctors') == [])
 
     def test_language_query(self):
-        language = 'english'
+        language = 'language_a'
         result: dict = get_doctors(language=language)
         doctors = result.get('doctors')
         self.assertFalse('error_code' in result)
         self.assertFalse(doctors == [])
         for doctor in doctors:
-            self.assertTrue('英語' in doctor.get('languages'))
+            self.assertTrue('lang_a' in doctor.get('languages'))
 
         result: dict = get_doctors(language='dummy')
         self.assertTrue(result.get('doctors') == [])
