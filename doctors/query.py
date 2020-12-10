@@ -57,7 +57,7 @@ def get_doctors(
         if district:
             condition.add(Q(district=district.strip().lower()), Q.AND)
         if category:
-            condition.add(Q(categories__query_name=category.strip().lower()), Q.AND)
+            condition.add(Q(services__category__query_name=category.strip().lower()), Q.AND)
         if language:
             condition.add(Q(languages__query_name=language.strip().lower()), Q.AND)
         

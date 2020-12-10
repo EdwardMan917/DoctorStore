@@ -1,5 +1,12 @@
 from django.db import models
-from django.db.models import ForeignKey, UUIDField, CharField, PositiveIntegerField
+from django.db.models import (
+    ForeignKey, 
+    UUIDField, 
+    CharField, 
+    PositiveIntegerField,
+    OneToOneField
+)
+
 import uuid
 
 class Doctor(models.Model):
@@ -27,6 +34,7 @@ class Language(models.Model):
 class Service(models.Model):
     id = UUIDField(primary_key=True, default=uuid.uuid4)
     doctor = ForeignKey("Doctor", on_delete=models.CASCADE, related_name="services")
+    category = OneToOneField("Category", on_delete=models.DO_NOTHING, related_name="category")
     item = CharField(null=False, max_length=255)
     price = PositiveIntegerField(null=False, db_index=True)
     remarks = CharField(null=True, max_length=255)
