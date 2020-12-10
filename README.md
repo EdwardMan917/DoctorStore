@@ -43,7 +43,7 @@ The Swagger documentaion is available at `http://127.0.0.1:8000/swagger`
 ```json
 {
     "doctor": {
-        "id": "4ce5922c-4209-418a-aa74-28ed05e75afe",
+        "id": "93191810-7a02-4df0-a352-d2e8a146c112",
         "name": "陳大文",
         "address": "九龍觀塘XX街1號XX大廈1A",
         "phone_number": "21234567",
@@ -101,7 +101,7 @@ or
 {
     "doctors": [
         {
-            "id": "4ce5922c-4209-418a-aa74-28ed05e75afe",
+            "id": "93191810-7a02-4df0-a352-d2e8a146c112",
             "name": "陳大文",
             "address": "九龍觀塘XX街1號XX大廈1A",
             "phone_number": "21234567",
@@ -124,7 +124,7 @@ or
             ]
         },
         {
-            "id": "f82ff159-99ee-4efb-895a-f0f493b8e606",
+            "id": "d0cd68b1-1329-45a4-93c3-410ee4815f00",
             "name": "林大文",
             "address": "九龍觀塘XX街99號XX大廈12C",
             "phone_number": "26234567",
