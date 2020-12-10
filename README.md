@@ -81,8 +81,8 @@ or
 | Status Code | Details |
 |-|-|
 | 200 | Success |
-| 404 | DOCTOR_NOT_FOUND: The ID does not belongs to any doctor records |
-| 500 | INTERNAL_SERVER_ERROR: Unexpected error occured |
+| 404 | DOCTOR_NOT_FOUND: Doctor with the ID provided is not found. |
+| 500 | INTERNAL_SERVER_ERROR: Unexpected server error occured. |
  
 <br/> 
 <br/> 
@@ -94,7 +94,7 @@ or
 1. district: Optional, string
 2. category: Optional, string
 3. lanuguage: Optional, string
-4. price_range: Optional, csv string. Format: `lower_limit,upper_limit`. Example: 200:300
+4. price_range: Optional, csv string. Format: `lower_limit,upper_limit`. Example: 200,300
 
 **Response Body:**
 ```json
@@ -162,8 +162,8 @@ or
 | Status Code | Details |
 |-|-|
 | 200 | Success |
-| 400 | INVALID_PRICE_RANGE: Price range is present but in an incorrect format |
-| 500 | INTERNAL_SERVER_ERROR: Unexpected error occured |
+| 400 | INVALID_PRICE_RANGE: Price range parameter is incorrect. |
+| 500 | INTERNAL_SERVER_ERROR: Unexpected server error occured. |
 <br/>  
 <br/> 
 

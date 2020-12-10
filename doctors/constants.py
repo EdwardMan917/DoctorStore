@@ -32,7 +32,7 @@ class GetDoctor:
     RESPONSES = {
         200: 'Doctor retrieved successfully.',
         404: f'{DOCTOR_NOT_FOUND}: Doctor with the ID provided is not found.',
-        500: f'{INTERNAL_SERVER_ERROR}: Unexpected server error.'
+        500: f'{INTERNAL_SERVER_ERROR}: Unexpected server error occured.'
     }
 
     STATUS = {
@@ -113,7 +113,7 @@ class GetDoctors:
     RESPONSES = {
         200: 'Doctor retrieved successfully.',
         400: f'{INVALID_PRICE_RANGE}: Price range parameter is incorrect.',
-        500: f'{INTERNAL_SERVER_ERROR}: Unexpected server error.'
+        500: f'{INTERNAL_SERVER_ERROR}: Unexpected server error occured.'
     }
 
     STATUS = {
