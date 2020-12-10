@@ -3,3 +3,4 @@ djangorestframework==3.12.1
 Django==3.1.4
 OSlash==0.5.1
 drf-yasg==1.20.0
+dataclasses==0.7
