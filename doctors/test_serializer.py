@@ -37,4 +37,5 @@ class SerializerTests(TestCase):
         self.assertEqual(self.doctor.categories.count(), len(self.result.get('categories')))
         self.assertEqual(self.doctor.languages.count(), len(self.result.get('languages')))
         self.assertEqual(self.doctor.opening_hours.count(), len(self.result.get('opening_hours')))
+        self.assertTrue('services' in category for category in self.result.get('categories'))
         
