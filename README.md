@@ -48,18 +48,20 @@ The Swagger documentaion is available at `http://127.0.0.1:8000/swagger`
         "address": "九龍觀塘XX街1號XX大廈1A",
         "phone_number": "21234567",
         "categories": [
-            "牙科"
+            {
+                "display_name": "牙科",
+                "services": [
+                    {
+                        "item": "洗牙",
+                        "price": 100,
+                        "remarks": null
+                    }
+                ]
+            }
         ],
         "languages": [
             "廣東話",
             "英語"
-        ],
-        "services": [
-            {
-                "item": "洗牙",
-                "price": 100,
-                "remarks": null
-            }
         ],
         "opening_hours": [
             "星期一至五:0900-1800"
@@ -106,18 +108,20 @@ or
             "address": "九龍觀塘XX街1號XX大廈1A",
             "phone_number": "21234567",
             "categories": [
-                "牙科"
+                {
+                    "display_name": "牙科",
+                    "services": [
+                        {
+                            "item": "洗牙",
+                            "price": 100,
+                            "remarks": null
+                        }
+                    ]
+                }
             ],
             "languages": [
                 "廣東話",
                 "英語"
-            ],
-            "services": [
-                {
-                    "item": "洗牙",
-                    "price": 100,
-                    "remarks": null
-                }
             ],
             "opening_hours": [
                 "星期一至五:0900-1800"
@@ -129,18 +133,20 @@ or
             "address": "九龍觀塘XX街99號XX大廈12C",
             "phone_number": "26234567",
             "categories": [
-                "皮膚科"
+                {
+                    "display_name": "皮膚科",
+                    "services": [
+                        {
+                            "item": "診金",
+                            "price": 280,
+                            "remarks": "不包藥物"
+                        }
+                    ]
+                }
             ],
             "languages": [
                 "廣東話",
                 "英語"
-            ],
-            "services": [
-                {
-                    "item": "診金",
-                    "price": 280,
-                    "remarks": "不包藥物"
-                }
             ],
             "opening_hours": [
                 "星期一至五:0900-1830"
