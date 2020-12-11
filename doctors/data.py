@@ -85,35 +85,3 @@ def create():
     OpeningHour.objects.create(doctor=doctor_e, details="星期一至五:0900-2000;星期六:0900-1530")
     OpeningHour.objects.create(doctor=doctor_f, details="星期一至五:0900-1830")
 
-
-def create_test_data():
-    doctor_test_a = Doctor.objects.create(
-        id='b8eec005-25e7-475a-b3f9-8b5f7d8471a4',
-        name="test_doctor_a", 
-        address="doctor_address_a", 
-        district="district_a", 
-        phone_number="phone_number"
-    )
-    doctor_test_b = Doctor.objects.create(
-        id='50d00df4-3fa4-4c7d-97bc-243da5c0bc08',
-        name="test_doctor_b", 
-        address="doctor_address", 
-        district="district_b", 
-        phone_number="phone_number"
-    )
-    category_aa = Category.objects.create(query_name="category_a", display_name="cat_a", doctor=doctor_test_a)
-    category_ab = Category.objects.create(query_name="category_b", display_name="cat_b", doctor=doctor_test_a)
-    category_ac = Category.objects.create(query_name="category_c", display_name="cat_c", doctor=doctor_test_a)
-    category_bb = Category.objects.create(query_name="category_b", display_name="cat_b", doctor=doctor_test_b)
-    
-    Language.objects.create(query_name="language_a", display_name="lang_a", doctor=doctor_test_a)
-    Language.objects.create(query_name="language_b", display_name="lang_b", doctor=doctor_test_a)
-    Language.objects.create(query_name="language_a", display_name="lang_a", doctor=doctor_test_b)
-
-    Service.objects.create(item="service_a", price=100, remarks=None, category=category_aa)
-    Service.objects.create(item="service_b", price=500, remarks=None, category=category_ab)
-    Service.objects.create(item="service_c", price=250, remarks=None, category=category_ac)
-    Service.objects.create(item="service_b", price=250, remarks=None, category=category_bb)
-    
-    OpeningHour.objects.create(doctor=doctor_test_a, details="details_a")
-    OpeningHour.objects.create(doctor=doctor_test_b, details="details_b")
