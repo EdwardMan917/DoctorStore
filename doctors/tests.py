@@ -11,6 +11,7 @@ class SerializerTests(TestCase):
     def setUpTestData(self):
         create_test_data()
         self.doctor = Doctor.objects.get(pk='b8eec005-25e7-475a-b3f9-8b5f7d8471a4')
+        self.categories = self.doctor.categories.all()
         self.result = DoctorSerializer(self.doctor).data
     
     def test_keys(self):
@@ -23,7 +24,6 @@ class SerializerTests(TestCase):
                 'phone_number', 
                 'categories', 
                 'languages', 
-                'services',
                 'opening_hours'
             }
         )
@@ -38,7 +38,6 @@ class SerializerTests(TestCase):
         self.assertEqual(self.doctor.categories.count(), len(self.result.get('categories')))
         self.assertEqual(self.doctor.languages.count(), len(self.result.get('languages')))
         self.assertEqual(self.doctor.opening_hours.count(), len(self.result.get('opening_hours')))
-        self.assertEqual(self.doctor.services.count(), len(self.result.get('services')))
         
 
 
@@ -89,8 +88,10 @@ class GetDoctorsTests(TestCase):
         doctors = result.get('doctors')
         self.assertFalse('error_code' in result)
         self.assertFalse(doctors == [])
+        categories_result = list()
         for doctor in doctors:
-            self.assertTrue('cat_b' in doctor.get('categories'))
+            categories_result += [category.get('display_name') for category in doctor.get('categories')]
+        self.assertTrue('cat_b' in categories_result)
 
         result: dict = get_doctors(category='dummy')
         self.assertTrue(result.get('doctors') == [])
