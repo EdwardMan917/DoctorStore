@@ -45,7 +45,7 @@ def get_doctors(
             lower_limit, upper_limit = map(int, price_query)
             if lower_limit < 0 or upper_limit < 0:
                 raise ValueError
-            price_query = Q(services__price__range=(lower_limit, upper_limit))
+            price_query = Q(categories__services__price__range=(lower_limit, upper_limit))
             return Right(dict(condition=ctx.get('condition').add(price_query, Q.AND)))
         except ValueError:
             return Left(dict(error_code=GetDoctors.INVALID_PRICE_RANGE))
@@ -57,7 +57,7 @@ def get_doctors(
         if district:
             condition.add(Q(district=district.strip().lower()), Q.AND)
         if category:
-            condition.add(Q(services__category__query_name=category.strip().lower()), Q.AND)
+            condition.add(Q(categories__query_name=category.strip().lower()), Q.AND)
         if language:
             condition.add(Q(languages__query_name=language.strip().lower()), Q.AND)
         

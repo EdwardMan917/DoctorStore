@@ -1,14 +1,40 @@
-from doctors.models import Doctor
+from doctors.models import Doctor, Category, Service
 from rest_framework import serializers
 
+class ServiceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Service
+        fields = (
+            'item',
+            'price',
+            'remarks'
+        )
+
+class CategorySerializer(serializers.ModelSerializer):
+    
+    services = ServiceSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Category
+        fields = (
+            'display_name',
+            'services'
+        )
 
 
 class DoctorSerializer(serializers.ModelSerializer):
 
-    categories = serializers.SerializerMethodField()
-    languages = serializers.SerializerMethodField()
-    services = serializers.SerializerMethodField()
-    opening_hours = serializers.SerializerMethodField() 
+    categories = CategorySerializer(many=True, read_only=True)
+    languages = serializers.SlugRelatedField(
+        many=True,
+        read_only=True, 
+        slug_field='display_name'
+    )
+    opening_hours = serializers.SlugRelatedField(
+        many=True,
+        read_only=True, 
+        slug_field='details'
+    )
     
     class Meta:
         model = Doctor
@@ -19,18 +45,5 @@ class DoctorSerializer(serializers.ModelSerializer):
             'phone_number', 
             'categories', 
             'languages',
-            'services',
             'opening_hours'
         )
-
-    def get_categories(self, obj):
-        return obj.categories.all().values_list('name', flat=True)
-
-    def get_languages(self, obj):
-        return obj.languages.all().values_list('name', flat=True)
-
-    def get_services(self, obj):
-        return obj.services.all().values('item', 'price', 'remarks')
-
-    def get_opening_hours(self, obj):
-        return obj.opening_hours.all().values_list('details', flat=True)
