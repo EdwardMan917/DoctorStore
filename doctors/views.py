@@ -1,9 +1,9 @@
 from rest_framework.response import Response
 from rest_framework import views
-from doctors.query import get_doctor_by_id, get_doctors
+from doctors.query import get_doctor_by_id, list_doctors
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
-from doctors.constants import GetDoctor, GetDoctors
+from doctors.constants import GetDoctor, ListDoctors
 
 class DoctorView(views.APIView):
 
@@ -22,17 +22,17 @@ class DoctorView(views.APIView):
         )
 
 
-class DoctorsView(views.APIView):
+class ListDoctorsView(views.APIView):
 
     @swagger_auto_schema(
-        manual_parameters=GetDoctors.PARAMETERS,
-        responses=GetDoctors.RESPONSES,
-        operation_id=GetDoctors.ID
+        manual_parameters=ListDoctors.PARAMETERS,
+        responses=ListDoctors.RESPONSES,
+        operation_id=ListDoctors.ID
     )
     def get(self, request):
         
         queries = request.GET
-        repsonse_body: dict = get_doctors(
+        repsonse_body: dict = list_doctors(
             district=queries.get('district'),
             category=queries.get('category'),
             language=queries.get('language'),
@@ -40,6 +40,6 @@ class DoctorsView(views.APIView):
         )
         
         return Response(
-            status=GetDoctors.STATUS.get(repsonse_body.get('error_code', 'SUCCESS')),
+            status=ListDoctors.STATUS.get(repsonse_body.get('error_code', 'SUCCESS')),
             data=repsonse_body
         )

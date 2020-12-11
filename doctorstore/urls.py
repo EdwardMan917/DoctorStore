@@ -1,6 +1,6 @@
 
 from django.urls import path
-from doctors.views import DoctorView, DoctorsView
+from doctors.views import DoctorView, ListDoctorsView
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
@@ -25,5 +25,5 @@ urlpatterns = [
 
 urlpatterns += [
     path('doctor/<uuid:doctor_id>', DoctorView.as_view(), name='get_doctor'),
-    path('doctor', DoctorsView.as_view(), name='get_doctors')
+    path('doctor', ListDoctorsView.as_view(), name='list_doctors')
 ]

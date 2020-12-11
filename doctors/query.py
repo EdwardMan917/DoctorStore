@@ -4,7 +4,7 @@ from doctors.models import Doctor
 from django.db.models import Q
 from typing import Union
 
-from doctors.constants import GetDoctor, GetDoctors
+from doctors.constants import GetDoctor, ListDoctors
 from doctors.serializers import DoctorSerializer
 
 from django.http import QueryDict
@@ -26,7 +26,7 @@ def get_doctor_by_id(doctor_id: str) -> dict:
         return dict(error_code=GetDoctor.INTERNAL_SERVER_ERROR)
 
 
-def get_doctors(
+def list_doctors(
     district: Union[str, None]=None, 
     category: Union[str, None]=None, 
     language: Union[str, None]=None, 
@@ -48,7 +48,7 @@ def get_doctors(
             price_query = Q(categories__services__price__range=(lower_limit, upper_limit))
             return Right(dict(condition=ctx.get('condition').add(price_query, Q.AND)))
         except ValueError:
-            return Left(dict(error_code=GetDoctors.INVALID_PRICE_RANGE))
+            return Left(dict(error_code=ListDoctors.INVALID_PRICE_RANGE))
 
     
     def generate_filter(ctx: dict) -> Right:
@@ -77,5 +77,5 @@ def get_doctors(
         return result.value
 
     except Exception:
-        return dict(error_code=GetDoctors.INTERNAL_SERVER_ERROR)
+        return dict(error_code=ListDoctors.INTERNAL_SERVER_ERROR)
 

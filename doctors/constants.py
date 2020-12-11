@@ -43,9 +43,9 @@ class GetDoctor:
 
 
 @dataclass
-class GetDoctors:
+class ListDoctors:
 
-    ID = 'Get Doctors'
+    ID = 'List Doctors'
     
     PARAMETERS = [
         openapi.Parameter(

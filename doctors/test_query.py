@@ -1,5 +1,5 @@
 from django.test import TestCase
-from doctors.query import get_doctor_by_id, get_doctors
+from doctors.query import get_doctor_by_id, list_doctors
 from doctors.models import *
 import uuid
 
@@ -144,7 +144,7 @@ class GetDoctorTests(TestCase):
         self.assertEqual(result.get('error_code'), 'DOCTOR_NOT_FOUND')
 
 
-class GetDoctorsTests(TestCase):
+class ListDoctorsTests(TestCase):
     
     @classmethod
     def setUpTestData(self):
@@ -152,7 +152,7 @@ class GetDoctorsTests(TestCase):
 
     def test_district_query(self):
         district = 'district_a'
-        result: dict = get_doctors(district=district)
+        result: dict = list_doctors(district=district)
         doctors = result.get('doctors')
         self.assertFalse('error_code' in result)
         self.assertFalse(doctors == [])
@@ -162,12 +162,12 @@ class GetDoctorsTests(TestCase):
                 district
             )
 
-        result: dict = get_doctors(district='dummy')
+        result: dict = list_doctors(district='dummy')
         self.assertTrue(result.get('doctors') == [])
         
     def test_category_query(self):
         category = 'category_b'
-        result: dict = get_doctors(category=category)
+        result: dict = list_doctors(category=category)
         doctors = result.get('doctors')
         self.assertFalse('error_code' in result)
         self.assertFalse(doctors == [])
@@ -176,24 +176,24 @@ class GetDoctorsTests(TestCase):
             categories_result += [category.get('display_name') for category in doctor.get('categories')]
         self.assertTrue('Category B' in categories_result)
 
-        result: dict = get_doctors(category='dummy')
+        result: dict = list_doctors(category='dummy')
         self.assertTrue(result.get('doctors') == [])
 
     def test_language_query(self):
         language = 'language_a'
-        result: dict = get_doctors(language=language)
+        result: dict = list_doctors(language=language)
         doctors = result.get('doctors')
         self.assertFalse('error_code' in result)
         self.assertFalse(doctors == [])
         for doctor in doctors:
             self.assertTrue('Language A' in doctor.get('languages'))
 
-        result: dict = get_doctors(language='dummy')
+        result: dict = list_doctors(language='dummy')
         self.assertTrue(result.get('doctors') == [])
 
     def test_price_query(self):
         price_range = '200,300'
-        result: dict = get_doctors(price_range=price_range)
+        result: dict = list_doctors(price_range=price_range)
         doctors = result.get('doctors')
         self.assertFalse('error_code' in result)
         self.assertFalse(doctors == [])
@@ -202,5 +202,5 @@ class GetDoctorsTests(TestCase):
             doctor_ids.append(doctor.get('id'))
         self.assertTrue('50d00df4-3fa4-4c7d-97bc-243da5c0bc08' in doctor_ids)
 
-        result: dict = get_doctors(price_range='dummy')
+        result: dict = list_doctors(price_range='dummy')
         self.assertTrue(result.get('error_code') == 'INVALID_PRICE_RANGE')

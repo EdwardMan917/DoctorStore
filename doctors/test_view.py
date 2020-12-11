@@ -45,29 +45,29 @@ class GetDoctorViewTests(APITestCase):
         self.assertEqual(response.json().get('error_code'), 'INTERNAL_SERVER_ERROR')
 
 
-class GetDoctorsViewTests(APITestCase):
+class ListDoctorsViewTests(APITestCase):
 
-    @patch('doctors.views.get_doctors')
+    @patch('doctors.views.list_doctors')
     def test_success(self, mocked_query):
-        endpoint = reverse('get_doctors')
+        endpoint = reverse('list_doctors')
         mocked_query.return_value = dict(doctors=[dummy_doctor])
         response = self.client.get(endpoint)
         
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue('doctors' in response.json())
     
-    @patch('doctors.views.get_doctors')
+    @patch('doctors.views.list_doctors')
     def test_invalid_price(self, mocked_query):
-        endpoint = reverse('get_doctors')
+        endpoint = reverse('list_doctors')
         mocked_query.return_value = dict(error_code='INVALID_PRICE_RANGE')
         response = self.client.get(endpoint)
         
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(response.json().get('error_code'), 'INVALID_PRICE_RANGE')
 
-    @patch('doctors.views.get_doctors')
+    @patch('doctors.views.list_doctors')
     def test_internal_error(self, mocked_query):
-        endpoint = reverse('get_doctors')
+        endpoint = reverse('list_doctors')
         mocked_query.return_value = dict(error_code='INTERNAL_SERVER_ERROR')
         response = self.client.get(endpoint)
         
