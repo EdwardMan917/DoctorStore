@@ -30,13 +30,21 @@ python3 manage.py test
 <br/>  
 
 ## Endpoints
-The Swagger documentaion is available at `http://127.0.0.1:8000/swagger`   
+The interactive Swagger documentaion is available at `http://127.0.0.1:8000/swagger`    
+Simply click `Try it out` for each endpoint   
+![](swagger_try.png)
+
+<br/>
+
+Then input the parameters and click `Execute`   
+
+![](swagger_exec.png)
 
 <br/> 
 <br/> 
 
 ### 1. Get a doctor by ID
-**Endpoint:** http://127.0.0.1:8000/doctor/<uuid:doctor_id>   
+**Endpoint:** http://127.0.0.1:8000/doctor/`uuid:doctor_id`   
 **Method:** GET
 
 **Response Body:**
